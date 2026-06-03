@@ -399,3 +399,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+  src/FirewiseMail.App/appsettings.json
+  backup-zips/
+  backups/
+  data/
+  exports/
+  attachments/
+  

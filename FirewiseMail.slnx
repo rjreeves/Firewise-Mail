@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FirewiseMail.App/FirewiseMail.App.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FirewiseMail.Tests/FirewiseMail.Tests.csproj" />
+  </Folder>
+</Solution>

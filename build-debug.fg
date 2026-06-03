@@ -1,0 +1,5 @@
+requires {
+  proc.exec
+}
+
+exec dotnet build FirewiseMail.slnx -c Debug

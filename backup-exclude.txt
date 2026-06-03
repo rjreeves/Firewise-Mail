@@ -1,0 +1,46 @@
+# Firewise-Mail backup exclude rules
+# Purpose: disposable/generated files that do not need GitHub or Drive A/B backup.
+# Paths are relative to the Firewise-Mail project root.
+
+# Git and editor state
+.git/
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# .NET build outputs and intermediates
+**/bin/
+**/obj/
+TestResults/
+*.trx
+coverage/
+coverage*/
+*.coverage
+*.coveragexml
+
+# Generated publish folder contents. Do not exclude dist/FirewiseMail/logs/.
+dist/FirewiseMail/*.dll
+dist/FirewiseMail/*.exe
+dist/FirewiseMail/*.pdb
+dist/FirewiseMail/*.deps.json
+dist/FirewiseMail/*.runtimeconfig.json
+dist/FirewiseMail/runtimes/
+dist/FirewiseMail/docs/
+dist/FirewiseMail/FirewiseMail-*.cmd
+
+# Generated backup archives made by make-backup-zip.ps1
+backup-zips/
+
+# Common transient files
+*.tmp
+*.temp
+*.cache
+*.log.tmp
+~$*
+Thumbs.db
+Desktop.ini
+

@@ -1,0 +1,23 @@
+# Firewise-Mail backup include rules
+# Purpose: non-source items that are worth copying to Drive A and Drive B.
+# Paths are relative to the Firewise-Mail project root.
+
+# Local/operational configuration. Keep out of public GitHub if it ever contains secrets.
+src/FirewiseMail.App/appsettings.json
+
+# Packaged release artifact. Source can rebuild it, but this is useful to preserve shipped builds.
+dist/FirewiseMail-Release.zip
+
+# Runtime/send logs from the deployed app. These are operational records, not source.
+dist/FirewiseMail/logs/
+
+# Future local data/export buckets if you add them later.
+backups/
+data/
+exports/
+attachments/
+*.bak
+*.dump
+*.sql
+*.sqlite
+*.sqlite3

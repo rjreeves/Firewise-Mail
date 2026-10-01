@@ -400,10 +400,11 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-  src/FirewiseMail.App/appsettings.json
-  backup-zips/
-  backups/
-  data/
-  exports/
-  attachments/
+src/FirewiseMail.App/appsettings.json
+src/FirewiseMail.SmtpTester/appsettings.json
+backup-zips/
+backups/
+data/
+exports/
+attachments/
   

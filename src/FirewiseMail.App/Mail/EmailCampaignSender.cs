@@ -50,6 +50,10 @@ public sealed class EmailCampaignSender
         {
             _logger.LogError("InvalidRecipient", $"{invalidRecipient} skipped: invalid email address", jobId);
         }
+        if (!dryRun)
+        {
+            await _databaseService.MarkBatchSkippedAsync(invalidRecipients, "invalid email address", cancellationToken);
+        }
 
         using var smtpClient = dryRun
             ? new SmtpClient()
@@ -122,8 +126,10 @@ public sealed class EmailCampaignSender
                     var reason = ex.GetBaseException().Message;
                     var batchName = string.Join(", ", batch);
                     _logger.LogError(batchName, reason, jobId);
-                    progress.Report(new CampaignProgress(sent, failed, summary.Pending, summary.TotalDistinct, $"Batch failed: {reason}"));
-                    throw;
+                    await _databaseService.MarkBatchSkippedAsync(batch, reason, cancellationToken);
+
+                    var afterFailureSummary = await _databaseService.GetRecipientSummaryAsync(cancellationToken);
+                    progress.Report(new CampaignProgress(sent, failed, afterFailureSummary.Pending, afterFailureSummary.TotalDistinct, $"Skipped failed batch: {reason}"));
                 }
             }
         }

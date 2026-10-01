@@ -163,6 +163,22 @@ public sealed partial class FireworksDatabaseService
         string attachmentNote,
         CancellationToken cancellationToken = default)
     {
+        await MarkBatchCompleteAsync(emailAddresses, attachmentNote, cancellationToken);
+    }
+
+    public async Task MarkBatchSkippedAsync(
+        IReadOnlyCollection<string> emailAddresses,
+        string reason,
+        CancellationToken cancellationToken = default)
+    {
+        await MarkBatchCompleteAsync(emailAddresses, $"Skipped: {reason}", cancellationToken);
+    }
+
+    private async Task MarkBatchCompleteAsync(
+        IReadOnlyCollection<string> emailAddresses,
+        string emailHistoryNote,
+        CancellationToken cancellationToken)
+    {
         if (emailAddresses.Count == 0)
         {
             return;
@@ -178,7 +194,7 @@ public sealed partial class FireworksDatabaseService
             foreach (var emailAddress in emailAddresses.Select(RecipientPlanner.NormalizeEmail).Where(email => email.Length > 0).Distinct())
             {
                 await MarkRecipientMailedAsync(connection, transaction, emailAddress, cancellationToken);
-                await InsertEmailHistoryAsync(connection, transaction, emailAddress, attachmentNote, cancellationToken);
+                await InsertEmailHistoryAsync(connection, transaction, emailAddress, emailHistoryNote, cancellationToken);
             }
 
             await transaction.CommitAsync(cancellationToken);

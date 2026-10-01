@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/FirewiseMail.App/FirewiseMail.App.csproj" />
+    <Project Path="src/FirewiseMail.SmtpTester/FirewiseMail.SmtpTester.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/FirewiseMail.Tests/FirewiseMail.Tests.csproj" />

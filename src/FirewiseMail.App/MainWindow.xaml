@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Fire-Wise Mail"
+        Title="FW Mail"
         Width="1280"
         Height="840"
         MinWidth="1100"
@@ -235,7 +235,7 @@
                         </Grid>
                         <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
                             <Button x:Name="SendCampaignButton"
-                                    Content="Send Campaign"
+                                    Content="Send"
                                     Width="138"
                                     Margin="0,0,8,0"
                                     Click="SendCampaignButton_Click" />

@@ -154,8 +154,11 @@ public partial class MainWindow : Window
         }
 
         _attachmentPaths.Clear();
-        _attachmentPaths.AddRange(selectedPaths);
-        RefreshAttachmentList();
+        if (selectedPaths.Count != 0)
+        {
+            _attachmentPaths.AddRange(selectedPaths);
+            RefreshAttachmentList();           
+        }
         UpdateCompositionValidation();
     }
 
@@ -184,8 +187,17 @@ public partial class MainWindow : Window
             return;
         }
 
+
+        // 
+
+
         var isDryRun = DryRunCheckBox.IsChecked == true;
-        var attachmentNames = string.Join(", ", _attachmentPaths.Select(Path.GetFileName));
+        var attachmentNames = _attachmentPaths.Count == 0
+            ? "(none)"
+            : string.Join(", ", _attachmentPaths.Select(Path.GetFileName));
+        var noAttachmentWarning = _attachmentPaths.Count == 0
+            ? "\n\nWarning: no PDF attachments selected."
+            : string.Empty;
         var confirm = MessageBox.Show(
             $"""
             {(isDryRun ? "Dry run" : "Send")} campaign?
@@ -196,6 +208,7 @@ public partial class MainWindow : Window
             Sender: {_settings.Mail.SenderAddress}
             Reply-To: {_settings.Mail.ReplyToAddress}
             Return: {_settings.Mail.ReturnAddress}
+            {noAttachmentWarning}
             """,
             "Confirm Send Campaign",
             MessageBoxButton.YesNo,
@@ -240,7 +253,6 @@ public partial class MainWindow : Window
             StatusText.Text = "Send failed.";
             HeaderStatusText.Text = "Send failed";
             LatestErrorText.Text = message;
-            MessageBox.Show(message, "Send Failed", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {
@@ -290,11 +302,6 @@ public partial class MainWindow : Window
             missingItems.Add("enter an HTML body");
         }
 
-        if (_attachmentPaths.Count == 0)
-        {
-            missingItems.Add("select at least one PDF");
-        }
-
         if (_attachmentPaths.Any(path => !File.Exists(path)))
         {
             missingItems.Add("remove missing PDF files");
@@ -341,11 +348,6 @@ public partial class MainWindow : Window
         if (string.IsNullOrWhiteSpace(BodyTextBox.Text))
         {
             missingItems.Add("enter an HTML body");
-        }
-
-        if (_attachmentPaths.Count == 0)
-        {
-            missingItems.Add("select at least one PDF");
         }
 
         if (_attachmentPaths.Any(path => !File.Exists(path)))

@@ -402,6 +402,7 @@ FodyWeavers.xsd
 
 src/FirewiseMail.App/appsettings.json
 src/FirewiseMail.SmtpTester/appsettings.json
+src/FirewiseMail.App/Configuration/Devart.Data.PostgreSql.lic
 backup-zips/
 backups/
 data/
